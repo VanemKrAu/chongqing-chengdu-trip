@@ -1022,7 +1022,7 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
   secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
   playSectionEntrance(document.getElementById(t.dataset.sec));
-  window.scrollTo({top:0,behavior:'instant'}); // 切换 tab 立即回到当前页顶部
+  window.scrollTo(0, 0); // 平滑回到当前页顶部（由 CSS scroll-behavior:smooth 驱动动画）
   saveUIState();
   if(window.ScrollTrigger) ScrollTrigger.refresh(); // 文档高度变化后重算进度条
 }));
@@ -1042,7 +1042,7 @@ function goToDay(day){
     card.classList.remove('collapsed'); // 确保展开显示时间轴
     setTimeout(()=>{
       const top=card.getBoundingClientRect().top+window.scrollY-72;
-      window.scrollTo({top:top,behavior:'smooth'});
+      window.scrollTo(0, top);
     },120);
   }
 }
