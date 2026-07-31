@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>川渝八日家庭游 · 旅行攻略手册</title>
+<meta name="description" content="重庆+成都 8 天 7 晚家庭游完整攻略：每日行程、美食、门票、住宿、预约清单、本地人推荐与防暑指南">
+<style>
+  /* ========== Design Tokens ========== */
+  :root{
+    --bg:#0f172a; --bg2:#0b1120; --card:#1e293b; --card2:#263449;
+    --border:#334155; --border2:#3f4f66;
+    --text:#e2e8f0; --text2:#94a3b8; --text3:#64748b;
+    --gold:#f59e0b; --orange:#f97316; --green:#10b981; --red:#ef4444; --blue:#38bdf8;
+    --grad:linear-gradient(135deg,#f59e0b 0%,#f97316 100%);
+    --radius:14px; --radius-sm:9px;
+    --shadow:0 8px 24px rgba(0,0,0,.35);
+    --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:rgba(245,158,11,.35)}
+
+  /* ========== Hero ========== */
+  .hero{background:radial-gradient(1200px 500px at 80% -10%,rgba(245,158,11,.14),transparent 60%),linear-gradient(180deg,var(--bg2),var(--bg));padding:44px 20px 36px;text-align:center;border-bottom:1px solid var(--border)}
+  .hero .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.14em;color:var(--gold);border:1px solid rgba(245,158,11,.35);padding:5px 14px;border-radius:999px;margin-bottom:18px;background:rgba(245,158,11,.08)}
+  .hero h1{font-size:clamp(28px,5.5vw,44px);font-weight:800;letter-spacing:.02em;line-height:1.2}
+  .hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{color:var(--text2);margin-top:10px;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+  .chip{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-size:13.5px;color:var(--text)}
+  .chip b{color:var(--gold);font-weight:700}
+  .chip svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ========== Tabs ========== */
+  .tabs{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 12px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1px solid var(--border);background:var(--card);color:var(--text2);padding:9px 17px;border-radius:999px;font-size:14px;font-family:var(--font);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px}
+  .tab:hover{color:var(--text);border-color:var(--border2)}
+  .tab.active{background:var(--grad);color:#1a1205;border-color:transparent;font-weight:700}
+  .tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ========== Layout ========== */
+  main{max-width:1060px;margin:0 auto;padding:26px 18px 60px}
+  section{display:none}
+  section.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .sec-head{display:flex;align-items:center;gap:12px;margin:26px 0 16px}
+  .sec-head:first-child{margin-top:8px}
+  .sec-head .num{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:var(--grad);color:#1a1205;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .sec-head h2{font-size:21px;font-weight:800}
+  .sec-head .tag{margin-left:auto;font-size:12px;color:var(--text3);border:1px solid var(--border);border-radius:999px;padding:3px 10px}
+
+  /* ========== Cards ========== */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+  .card h3{font-size:17px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex:0 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px}
+  .stat .v{font-size:26px;font-weight:800;color:var(--gold)}
+  .stat .l{font-size:13px;color:var(--text2);margin-top:2px}
+
+  /* ========== Timeline ========== */
+  .day{border:1px solid var(--border);border-radius:var(--radius);background:var(--card);margin-bottom:18px;overflow:hidden}
+  .day-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:linear-gradient(90deg,rgba(245,158,11,.1),transparent);border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+  .day-badge{width:46px;height:46px;flex:0 0 46px;border-radius:12px;background:var(--grad);color:#1a1205;font-weight:800;font-size:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05}
+  .day-badge small{font-size:9px;font-weight:600;opacity:.8}
+  .day-title{font-size:17px;font-weight:800}
+  .day-meta{font-size:12.5px;color:var(--text2);margin-top:2px}
+  .day-head .chev{margin-left:auto;color:var(--text3);transition:transform .25s;width:18px;height:18px}
+  .day.collapsed .chev{transform:rotate(-90deg)}
+  .day-body{padding:6px 20px 18px}
+  .day.collapsed .day-body{display:none}
+  .tl{list-style:none;padding:12px 0 0}
+  .tl li{position:relative;padding:0 0 16px 30px}
+  .tl li::before{content:"";position:absolute;left:8px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--card2);border:2.5px solid var(--gold)}
+  .tl li:not(:last-child)::after{content:"";position:absolute;left:12.5px;top:20px;bottom:-4px;width:2px;background:var(--border2)}
+  .tl .t{color:var(--gold);font-weight:700;font-size:13px;display:inline-block;min-width:52px}
+  .tl .d{color:var(--text);font-size:14.5px}
+  .tl .d b{color:var(--text)}
+  .meal{margin-top:6px;padding:11px 13px;background:var(--bg2);border-left:3px solid var(--orange);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:13.5px;color:var(--text2)}
+  .meal b{color:var(--orange)}
+
+  /* ========== Tables ========== */
+  .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm)}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+  th{background:linear-gradient(135deg,#f59e0b,#f97316);color:#1a1205;font-weight:700;text-align:left;padding:11px 14px;white-space:nowrap}
+  td{padding:10px 14px;border-top:1px solid var(--border)}
+  tbody tr:nth-child(even){background:rgba(148,163,184,.05)}
+  td b{color:var(--gold)}
+  td .ok{color:var(--green);font-weight:700}
+  td .warn{color:var(--red);font-weight:600}
+
+  /* ========== Badges / Alerts ========== */
+  .alert{border-radius:var(--radius-sm);padding:13px 16px;font-size:14px;margin:10px 0;display:flex;gap:10px;align-items:flex-start}
+  .alert svg{width:17px;height:17px;flex:0 0 17px;margin-top:2px;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .alert-red{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5}
+  .alert-red svg{stroke:#ef4444}
+  .alert-green{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7}
+  .alert-green svg{stroke:#10b981}
+  .alert-gold{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
+  .alert-gold svg{stroke:#f59e0b}
+  .badge{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:999px;margin-left:6px;vertical-align:1px;font-weight:700}
+  .b-green{background:rgba(16,185,129,.15);color:#34d399}
+  .b-gold{background:rgba(245,158,11,.15);color:#fbbf24}
+  .b-red{background:rgba(239,68,68,.15);color:#f87171}
+
+  /* ========== Checklist ========== */
+  .check{list-style:none}
+  .check li{display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:9px;cursor:pointer;transition:background .2s;font-size:14.5px;background:var(--card)}
+  .check li:hover{background:var(--card2)}
+  .check .box{width:22px;height:22px;flex:0 0 22px;border:2px solid var(--border2);border-radius:6px;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .check .box svg{width:13px;height:13px;stroke:#1a1205;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+  .check li.done .box{background:var(--green);border-color:var(--green)}
+  .check li.done .box svg{opacity:1}
+  .check li.done{color:var(--text3);text-decoration:line-through;text-decoration-color:rgba(148,163,184,.4)}
+
+  /* ========== Misc ========== */
+  .link-list li{margin:7px 0 7px 18px;font-size:14.5px;color:var(--text)}
+  .link-list li b{color:var(--gold)}
+  .hotel{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .hotel-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+  .hotel-item h4{font-size:15px;color:var(--gold);margin-bottom:5px}
+  .hotel-item p{font-size:13.5px;color:var(--text2)}
+  .footer{border-top:1px solid var(--border);margin-top:40px;padding:24px 18px;text-align:center;color:var(--text3);font-size:12.5px;line-height:1.9}
+  .footer b{color:var(--text2)}
+  @media print{
+    .tabs,.chips,.day-head .chev,.day.collapsed .day-body{display:none!important}
+    .day.collapsed .day-body{display:block!important}
+    body{background:#fff;color:#111}
+    .card,.day,.stat,.hotel-item,.check li{background:#fff;border-color:#ccc;color:#111}
+    table th{background:#f59e0b;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="kicker">
+    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.2L21 8.4l-5 4.3 1.5 6.8L12 15.8l-5.5 3.7L8 12.7l-5-4.3 6.6-.2z"/></svg>
+    家庭旅行攻略 · 2026 暑假
+  </div>
+  <h1>重庆 × 成都 <em>八日家庭游</em></h1>
+  <p class="sub">3 大人 + 1 小朋友 + 1 老人 ｜ 河南漯河出发 ｜ 重庆地铁 + 成都租车</p>
+  <div class="chips">
+    <span class="chip"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><b>8天7晚</b></span>
+    <span class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>最佳时段：<b>避开10-16时暴晒</b></span>
+    <span class="chip"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>预算是 <b>1.7-2.0万</b></span>
+    <span class="chip"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>人均 <b>3500-4000元</b></span>
+  </div>
+</header>
+
+<!-- ================= TABS ================= -->
+<nav class="tabs" id="tabs" aria-label="攻略分区">
+  <button class="tab active" data-sec="overview"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>行程总览</button>
+  <button class="tab" data-sec="daily"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>每日行程</button>
+  <button class="tab" data-sec="food"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>美食清单</button>
+  <button class="tab" data-sec="tickets"><svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 0 0 6v3a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-3a3 3 0 0 0 0-6V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>门票&预约</button>
+  <button class="tab" data-sec="stay"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14"/><path d="M9 21v-4h6v4"/></svg>住宿&交通</button>
+  <button class="tab" data-sec="tips"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>注意事项</button>
+  <button class="tab" data-sec="audit"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>审计报告</button>
+</nav>
+
+<main id="main">
+
+<!-- ================= 1 OVERVIEW ================= -->
+<section id="overview" class="active">
+  <div class="grid" style="margin-bottom:18px">
+    <div class="stat"><div class="v">4+3</div><div class="l">重庆 3.5 天 + 成都 2.5 天（8天版）</div></div>
+    <div class="stat"><div class="v">2</div><div class="l">必去级景点全覆盖：市区核心+武隆 / 熊猫+都江堰</div></div>
+    <div class="stat"><div class="v">0</div><div class="l">全程回头路（每日路线单向推进）</div></div>
+  </div>
+
+  <div class="sec-head"><span class="num">1</span><h2>八日行程总览</h2><span class="tag">点击每日卡片看详细时间轴</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>天</th><th>城市</th><th>行程</th><th>住宿</th></tr></thead>
+    <tbody>
+      <tr><td><b>D1</b></td><td>重庆</td><td>漯河→高铁6h→解放碑 → 八一好吃街 → 洪崖洞夜景</td><td>解放碑/洪崖洞</td></tr>
+      <tr><td><b>D2</b></td><td>重庆</td><td>磁器口(上午凉快) → 午休 → 三峡博物馆(避暑) → 李子坝轻轨穿楼</td><td>同上</td></tr>
+      <tr><td><b>D3</b></td><td>重庆</td><td>长江索道 → 龙门浩/弹子石 → 山城巷/十八梯 → 两江夜游</td><td>同上</td></tr>
+      <tr><td><b>D4</b></td><td>重庆</td><td>武隆天生三桥 或 动物园+交通茶馆(轻松版)</td><td>同上</td></tr>
+      <tr><td><b>D5</b></td><td>成都</td><td>高铁1.5h → 宽窄巷子 → 人民公园鹤鸣茶社 → 太古里夜景</td><td>春熙路/太古里</td></tr>
+      <tr><td><b>D6</b></td><td>成都</td><td>熊猫基地(7:30入园) → 文殊院+张老二凉粉 → 武侯祠+锦里</td><td>同上</td></tr>
+      <tr><td><b>D7</b></td><td>成都</td><td>租车自驾 → 都江堰(秦堰楼免爬线) → 熊猫谷/街子古镇 → 还车</td><td>同上</td></tr>
+      <tr><td><b>D8</b></td><td>返程</td><td>成都东→郑州东(5h) → 漯河西(49min) → 到家</td><td>🏠</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="alert alert-gold" style="margin-top:16px">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <div><b>7 天精简版：</b>砍 D4 武隆（用动物园轻松版替代），其余不动。带老人小孩推荐此方案。</div>
+  </div>
+
+  <div class="sec-head"><span class="num">2</span><h2>大交通速查</h2><span class="tag">12306 提前15天购票</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>路段</th><th>方案</th><th>耗时</th><th>二等座参考</th></tr></thead>
+    <tbody>
+      <tr><td>漯河→重庆</td><td>G2104 漯河西07:31→郑州东 → 换乘 G3424 → 重庆北13:21</td><td>约 6h</td><td>约 500 元/人</td></tr>
+      <tr><td>重庆→成都</td><td>重庆北/西 → 成都东（公交化，160+班次/天）</td><td>最快 1h15m</td><td>85-158 元/人</td></tr>
+      <tr><td>成都→漯河</td><td>G322/G3418 成都东→郑州东(5h) → G2081 郑州东→漯河西(49min)</td><td>约 6.5h</td><td>约 530 元/人</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="alert alert-red" style="margin-top:14px">
+    <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+    <div><b>买票认准重庆北站</b>（离住宿最近）；重庆西站远 15km+。返程成都东站大，提前 1 小时进站。2026-07-01 起铁路调图，出行前 12306 复核车次。</div>
+  </div>
+</section>
+
+<!-- ================= 2 DAILY ================= -->
+<section id="daily">
+  <div class="sec-head"><span class="num">1</span><h2>每日详细时间轴</h2><span class="tag">点击卡片折叠/展开</span></div>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:14px">📌 通用节奏：每天 1-2 个核心景点 + 午休避高温（重庆 8 月 40℃，10:00-16:00 尽量室内）。每日路线已优化为单向零回头。</p>
+
+  <!-- D1 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D1<small>重庆</small></div>
+      <div><div class="day-title">漯河 → 重庆 · 抵达与夜景</div><div class="day-meta">高铁 6h ｜ 解放碑步行圈 ｜ 强度 ★☆☆☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">06:30</span><span class="d">漯河西站集合进站</span></li>
+        <li><span class="t">07:31</span><span class="d">G2104 漯河西 → 郑州东（41min），站内快捷换乘</span></li>
+        <li><span class="t">08:36</span><span class="d">G3424 郑州东 → <b>重庆北 13:21</b>（4h45m，车上订盒饭 30-50 元）</span></li>
+        <li><span class="t">14:00</span><span class="d">地铁 3/10 号线或打车到解放碑酒店（30min）→ 午休避高温</span></li>
+        <li><span class="t">16:30</span><span class="d">解放碑步行街（国泰艺术中心、WFC 外观）</span></li>
+        <li><span class="t">18:00</span><span class="d">八一好吃街晚餐：小面、酸辣粉、山城小汤圆</span></li>
+        <li><span class="t">19:30</span><span class="d">洪崖洞夜景：千厮门大桥看全景 → 1 楼滨江路拍吊脚楼灯光</span></li>
+      </ul>
+      <div class="meal">🍜 <b>D1 晚餐（3选1）</b>：八一好吃街 ｜ 陶婆婆火锅(解放碑店) ｜ 防空洞老火锅(解放碑总店·邹容路50号)——防空洞里吃火锅，孩子超爱</div>
+    </div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D2<small>重庆</small></div>
+      <div><div class="day-title">磁器口 · 三峡博物馆 · 李子坝</div><div class="day-meta">地铁单向线 ｜ 正午午休+室内避暑 ｜ 强度 ★★☆☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">08:30</span><span class="d">1号线较场口 → 磁器口站（30min），<b>趁凉快逛磁器口古镇</b>：陈麻花、毛血旺、千张皮、椒盐花生"古镇三宝"</span></li>
+        <li><span class="t">11:00</span><span class="d">原路返回解放碑午餐 → <b>酒店午休</b>（避开正午 40℃）</span></li>
+        <li><span class="t">14:30</span><span class="d">2号线临江门 → 曾家岩，<b>三峡博物馆</b>（免费预约·周一闭馆·馆内凉快）+ 人民大礼堂外观</span></li>
+        <li><span class="t">16:30</span><span class="d">2号线顺路 2 站 → <b>李子坝</b>：轻轨穿楼观景台 + 嘉陵江落日</span></li>
+        <li><span class="t">17:30</span><span class="d">返回酒店</span></li>
+        <li><span class="t">19:00</span><span class="d"><b>火锅夜</b>（提前1小时大众点评取号，选<u>鸳鸯锅</u>）</span></li>
+      </ul>
+      <div class="meal">🍜 <b>午餐</b>：阿福板凳面(豌杂面) ｜ 十八梯邓凳面(10元内) ｜ 范嬢嬢糯米团 &nbsp;|&nbsp; <b>晚餐</b>：珮姐重庆火锅(解放碑步行街店) ｜ 周师兄大刀腰片(洪崖洞店)</div>
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D3<small>重庆</small></div>
+      <div><div class="day-title">长江索道 · 南岸老街 · 两江夜游</div><div class="day-meta">南岸+渝中各半天，仅1次过江 ｜ 强度 ★★★☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">08:30</span><span class="d">步行到长江索道北站（小什字）→ <b>单程过江</b>（30元，公众号取号，南站方向人少）</span></li>
+        <li><span class="t">09:30</span><span class="d"><b>龙门浩老街</b>：老洋房+江景茶馆 ｜ 可选：两江小渡过江回渝中（约10元，本地人方式）</span></li>
+        <li><span class="t">12:30</span><span class="d">南岸午餐（豆花饭/泉水鸡）→ 返回渝中午休</span></li>
+        <li><span class="t">16:00</span><span class="d"><b>山城巷</b>（悬崖步道·原汁原味老重庆）→ <b>十八梯</b>（新旧对比）→ 白象居（拍索道机位）</span></li>
+        <li><span class="t">20:00</span><span class="d"><b>两江夜游游轮</b>：洪崖洞码头登船（118-158元，1.2m以下免票，实名制，提前购票）45-60min 看洪崖洞+千厮门大桥+来福士</span></li>
+      </ul>
+      <div class="meal">🍜 <b>午餐</b>：龙门浩豆花饭/泉水鸡 ｜ <b>晚餐</b>：饭粑跎(得意世界店·拌蹄花) ｜ 任六烧菜(麻婆豆腐) ｜ 田棒棒火锅</div>
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D4<small>重庆</small></div>
+      <div><div class="day-title">武隆天生三桥（或 动物园轻松版）</div><div class="day-meta">双方案 ｜ 暴雨天强制切轻松版 ｜ 强度 ★★★★☆ / ★★☆☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <div class="alert alert-red" style="margin-top:6px">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+        <div><b>暴雨天强烈不建议进武隆</b>（3h 山路+峡谷天坑，山洪滑坡风险高）。出发前看 48h 预报，暴雨自动切换下方轻松版。</div>
+      </div>
+      <ul class="tl">
+        <li><span class="t">07:00</span><span class="d"><b>方案A·武隆</b>：包车/小团上门接（单程3h）→ 天生三桥（<b>125-155元</b>，老人120元/优待85元/1.2m下免）旋转电梯下天坑 → 天福官驿《满城尽带黄金甲》取景地 → 仙女山草原（可选）→ 18:30 返市区</span></li>
+        <li><span class="t">09:00</span><span class="d"><b>方案B·轻松版（老人推荐）</b>：重庆动物园（25元·<b>全国熊猫最多22只</b>·平地多）→ 交通茶馆（市井老茶馆）→ 黄桷坪涂鸦街（免费）</span></li>
+      </ul>
+      <div class="meal">🍜 A版：仙女镇农家菜 ｜ B版：李子坝梁山鸡(李子坝正街60号老店·芋儿鸡) + 蹄花汤</div>
+    </div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D5<small>成都</small></div>
+      <div><div class="day-title">宽窄巷子 · 人民公园 · 太古里</div><div class="day-meta">高铁1.5h ｜ 西南单向线 ｜ 强度 ★★☆☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">08:30</span><span class="d">退房 → 打车到重庆北 → 高铁（最快 1h15m，二等座约 150 元）</span></li>
+        <li><span class="t">11:30</span><span class="d">成都东 → 地铁2号线到春熙路酒店（20min）→ 入住 + 午餐</span></li>
+        <li><span class="t">14:00</span><span class="d">4号线 → <b>宽窄巷子</b>：变脸、掏耳朵、老茶馆</span></li>
+        <li><span class="t">16:30</span><span class="d"><b>人民公园鹤鸣茶社</b>：盖碗茶（16元起）+ 采耳，老人歇脚；人多可改<b>少城苑/浓荫茶社</b></span></li>
+        <li><span class="t">18:30</span><span class="d">晚餐：小龙翻大江文化火锅（宽窄巷子窄巷子28号，边吃边看变脸）</span></li>
+        <li><span class="t">20:00</span><span class="d"><b>春熙路太古里夜景</b>：IFS 熊猫爬墙打卡（酒店楼下），早点休息养精神</span></li>
+      </ul>
+      <div class="meal">🍜 <b>午餐</b>：龙抄手总店(1941老字号·小吃套餐) ｜ 钟水饺 ｜ 赖汤圆(15元/碗) &nbsp;|&nbsp; <b>下午茶</b>：鹤鸣茶社 + 廖老妈蹄花(不辣·老人友好)</div>
+    </div>
+  </div>
+
+  <!-- D6 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D6<small>成都</small></div>
+      <div><div class="day-title">熊猫基地 · 文殊院 · 武侯祠锦里</div><div class="day-meta">重头戏日 ｜ 7:30 开门即入 ｜ 强度 ★★★☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">06:30</span><span class="d">起床，07:00 出发（打车 40min）</span></li>
+        <li><span class="t">07:30</span><span class="d"><b>熊猫基地开门即入</b>（55元·老人免票刷证·<b>观光车30元必买</b>）→ 先冲幼年别墅看"花花"（8:30左右出来）→ 9:00 前看完熊猫吃竹子</span></li>
+        <li><span class="t">11:30</span><span class="d">出园 → 顺路 <b>文殊院</b>（免费·本地人香火最旺）→ <b>洞子口张老二凉粉</b>（文殊院街39号·甜水面"成都味道第一"·人均12）</span></li>
+        <li><span class="t">13:30</span><span class="d">回酒店午休</span></li>
+        <li><span class="t">15:00</span><span class="d"><b>武侯祠</b>（50元·14天预售·17:00停止入馆）：刘备诸葛亮合祀、红墙竹影</span></li>
+        <li><span class="t">17:30</span><span class="d"><b>锦里</b>：红灯笼夜景 + 伤心凉粉、三大炮（锦里只此一次，不重复跑）</span></li>
+        <li><span class="t">20:00</span><span class="d">可选：<b>蜀风雅韵川剧变脸</b>（琴台路·19:30场·贰品票性价比高·含盖碗茶）</span></li>
+      </ul>
+      <div class="meal">🍜 <b>午餐</b>：张老二凉粉 ｜ 叶婆婆钵钵鸡(太古里) ｜ 马旺子·川小馆(黑豆花水煮鱼无刺) &nbsp;|&nbsp; <b>晚餐</b>：钟水饺(武侯祠店·武侯祠大街2号·人均25) ｜ 代小龙火锅(人均40)</div>
+    </div>
+  </div>
+
+  <!-- D7 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D7<small>成都</small></div>
+      <div><div class="day-title">都江堰自驾一日</div><div class="day-meta">租车 ｜ 秦堰楼免爬山线 ｜ 强度 ★★★☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">08:00</span><span class="d">取车（<b>一嗨</b>：芝麻信用650免押金，7座车/SUV，日租150-250元，<b>补充保险50元/天必买</b>）</span></li>
+        <li><span class="t">08:30</span><span class="d">自驾 60km，高速 1-1.5h → 都江堰（<b>80元</b>·60-64岁老人<b>非节假日免费</b>·65+免·<b>提前7天抢票</b>）</span></li>
+        <li><span class="t">09:30</span><span class="d"><b>秦堰楼入口免爬山线</b>：秦堰楼3楼俯瞰鱼嘴 → 二王庙 → 安澜索桥 → 鱼嘴 → 飞沙堰 → 宝瓶口 → 离堆公园南门出</span></li>
+        <li><span class="t">12:30</span><span class="d">灌县古城午餐：尤兔头、葱葱卷、钟鸭子(非遗·半只41元)</span></li>
+        <li><span class="t">14:00</span><span class="d"><b>熊猫谷</b>（都江堰的熊猫基地·人少）或 本地人更爱的 <b>街子古镇</b>（30min同方向）</span></li>
+        <li><span class="t">16:30</span><span class="d">仰天窝广场网红自拍大熊猫 → 17:30 返成都 → 19:00 还车</span></li>
+      </ul>
+      <div class="meal">🍜 <b>午餐</b>：灌县古城 尤兔头+葱葱卷+河鲜 &nbsp;|&nbsp; <b>晚餐</b>：饕林餐厅(回锅肉·人均65) 或 蜀宴赋表演晚宴</div>
+    </div>
+  </div>
+
+  <!-- D8 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-badge">D8<small>返程</small></div>
+      <div><div class="day-title">成都 → 漯河</div><div class="day-meta">6.5h 到家 ｜ 强度 ★☆☆☆☆</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body">
+      <ul class="tl">
+        <li><span class="t">08:00</span><span class="d">早餐 + 退房</span></li>
+        <li><span class="t">09:00</span><span class="d">地铁2号线直达成都东站（25min·预留1h进站）</span></li>
+        <li><span class="t">10:00</span><span class="d">G322/G3418 成都东 → 郑州东（约 5h）</span></li>
+        <li><span class="t">15:00</span><span class="d">郑州东站内换乘 → 漯河西（49min）</span></li>
+        <li><span class="t">16:30</span><span class="d">🏠 到家</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-green">
+    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+    <div><b>升级 9 天版（假期允许强烈推荐）</b>：给成都 +1 天，行程变 D6 熊猫+文殊院 → D7 <b>三星堆全天</b>（72元·车程1-1.5h·请2.5h讲解，"世界第九大奇迹"）→ D8 都江堰 → D9 返程。两城比例变 3.5:3.5，从容很多。</div>
+  </div>
+</section>
+
+<!-- ================= 3 FOOD ================= -->
+<section id="food">
+  <div class="sec-head"><span class="num">1</span><h2>每日饭点推荐（都在景点附近）</h2><span class="tag">人均已标注</span></div>
+
+  <div class="card"><h3><span class="dot"></span>D1 解放碑 · 晚餐</h3>
+    <ul class="link-list">
+      <li><b>八一好吃街</b>（步行3min）—— 小面/酸辣粉/串串，人均 20-40</li>
+      <li><b>陶婆婆火锅</b>（解放碑店）—— 卤蹄花 Q 弹耙糯，步行 5min</li>
+      <li><b>防空洞老火锅</b>（解放碑总店·邹容路50号）—— 防空洞吃火锅，孩子体验感拉满</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3><span class="dot"></span>D2 磁器口+解放碑 · 午+晚</h3>
+    <ul class="link-list">
+      <li><b>午餐</b>：阿福板凳面（豌杂面/纸皮烧卖）｜ 十八梯邓凳面（10元内）｜ 范嬢嬢糯米团</li>
+      <li><b>茶歇</b>：陈建平老街陈麻花（磁器口正街60号·人均10-26）｜ 古镇鸡杂｜毛血旺｜格桑家酸奶</li>
+      <li><b>晚餐·火锅夜</b>：珮姐重庆火锅（解放碑步行街店·贡菜丸子/水牛毛肚）｜ 周师兄大刀腰片（洪崖洞店）—— <b>必点鸳鸯锅</b></li>
+    </ul>
+  </div>
+
+  <div class="card"><h3><span class="dot"></span>D3 南岸+渝中 · 午+晚</h3>
+    <ul class="link-list">
+      <li><b>午餐</b>：龙门浩老街豆花饭/泉水鸡（人均30-50·江景位）</li>
+      <li><b>晚餐</b>：饭粑跎（得意世界店·拌肥肠/拌蹄花）｜ 任六烧菜（麻婆豆腐/红烧肥肠）｜ 田棒棒火锅（竹荪虾滑）</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3><span class="dot"></span>D4 武隆/动物园 · 午+晚</h3>
+    <ul class="link-list">
+      <li><b>A 武隆</b>：仙女山镇农家菜（人均30-40）</li>
+      <li><b>B 轻松版</b>：<b>李子坝梁山鸡</b>（李子坝正街60号老店·江湖菜五十强榜首·芋儿鸡软烂）→ 晚上蹄花汤/江湖菜</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3><span class="dot"></span>D5 成都第一晚 · 午+下午茶+晚</h3>
+    <ul class="link-list">
+      <li><b>午餐</b>：龙抄手总店（1941老字号·小吃套餐一次尝遍钟水饺/担担面）｜ 钟水饺 ｜ 赖汤圆（15元/碗流心）</li>
+      <li><b>下午茶</b>：鹤鸣茶社盖碗茶（16元起）+ 采耳；门口"老妈蹄花一条街"——<b>廖老妈蹄花</b>（28元/碗·不辣·老人友好）</li>
+      <li><b>晚餐</b>：<b>小龙翻大江文化火锅</b>（宽窄巷子窄巷子28号·边吃火锅边看变脸）</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3><span class="dot"></span>D6 熊猫日 · 午+晚</h3>
+    <ul class="link-list">
+      <li><b>午餐（顺路）</b>：<b>洞子口张老二凉粉</b>（文殊院街39号·甜水面"成都味道第一"·人均12）｜ 叶婆婆钵钵鸡（太古里·人均30-40）｜ 马旺子·川小馆（黑豆花水煮鱼无刺）</li>
+      <li><b>晚餐</b>：<b>钟水饺（武侯祠店）</b>（武侯祠大街2号·人均25）｜ 锦里小吃 ｜ 代小龙火锅（人均40·九宫格）</li>
+    </ul>
+  </div>
+
+  <div class="card"><h3><span class="dot"></span>D7 都江堰 · 午+晚</h3>
+    <ul class="link-list">
+      <li><b>午餐（灌县古城）</b>：尤兔头 ｜ 葱葱卷（7-8元）｜ <b>钟鸭子</b>（非遗·半只41元）｜ 破店蹄花（客运中心旁·本地人宵夜）</li>
+      <li><b>晚餐（成都收尾）</b>：饕林餐厅（春熙路·回锅肉封神·人均65）或 蜀宴赋表演晚宴（约200/人）</li>
+    </ul>
+  </div>
+
+  <div class="alert alert-gold">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <div><b>网红店排队提醒</b>：珮姐/周师兄/饕林/龙抄手饭点排队 1-2h——提前 1h 在大众点评/美团取号，或错峰（11:00/17:00 前到）。C 级来源餐厅（阿福板凳面、范嬢嬢、任六、田棒棒）出发前大众点评确认营业状态。</div>
+  </div>
+</section>
+
+<!-- ================= 4 TICKETS ================= -->
+<section id="tickets">
+  <div class="sec-head"><span class="num">1</span><h2>门票价格速查</h2><span class="tag">2026-07 核实，以官方当日为准</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>景点</th><th>成人价</th><th>老人/儿童优惠</th><th>预约要求</th></tr></thead>
+    <tbody>
+      <tr><td>洪崖洞 / 解放碑 / 磁器口 / 宽窄巷子 / 锦里 / 山城巷 / 十八梯</td><td>免费</td><td>—</td><td>—</td></tr>
+      <tr><td><b>熊猫基地</b></td><td>55元</td><td>60+老人免票免预约·6岁/1.3m下免·学生27元</td><td class="warn">线上实名预约，提前7-14天</td></tr>
+      <tr><td><b>都江堰</b></td><td>80元</td><td>60-64岁非节假日免/节假日半价·65+免·1.3m下免</td><td class="warn">提前7天抢票，热门时段2h售罄</td></tr>
+      <tr><td><b>武侯祠</b></td><td>50元</td><td>7-18岁/学生半价25元</td><td class="warn">提前14天预售，17:00停止入馆</td></tr>
+      <tr><td>长江索道</td><td>单程30/往返50</td><td>1.3m下免</td><td class="warn">公众号购票取号，南站人少</td></tr>
+      <tr><td>两江夜游</td><td>118-158元</td><td>1.2m下免</td><td class="warn">实名制，提前线上购票</td></tr>
+      <tr><td>武隆天生三桥</td><td>125-155元(含电梯+接驳)</td><td>60-64岁约120·65+约85·1.2m下免</td><td>线上购票，夏季8:00-17:00</td></tr>
+      <tr><td>重庆动物园</td><td>25元</td><td>老人半价/免票按政策</td><td>可现场</td></tr>
+      <tr><td>三峡博物馆</td><td>免费</td><td>—</td><td class="warn">预约制，周一闭馆</td></tr>
+      <tr><td>南山一棵树</td><td>30元</td><td>—</td><td>线上购票</td></tr>
+      <tr><td>三星堆（9天版）</td><td>72元</td><td>儿童/学生优惠</td><td class="warn">提前1-3天预约，请讲解2.5h体验最佳</td></tr>
+      <tr><td>蜀风雅韵变脸</td><td>贰品票性价比高</td><td>—</td><td class="warn">小程序预约，19:30场</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="sec-head" style="margin-top:26px"><span class="num">2</span><h2>出发前预约清单（点一下打勾，自动保存）</h2><span class="tag">localStorage 记忆</span></div>
+  <ul class="check" id="checklist">
+    <li data-k="c1"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>火车票 3 程</b>：漯河↔重庆中转、重庆→成都、成都→漯河（12306 提前 15 天）</span></li>
+    <li data-k="c2"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>熊猫基地门票</b>：提前 7-14 天线上实名预约（老人免票但带身份证）</span></li>
+    <li data-k="c3"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>都江堰门票</b>：提前 7 天（官方"悦游都江堰"公众号/美团，开票 2h 内常售罄）</span></li>
+    <li data-k="c4"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>武侯祠门票</b>：提前 14 天预售</span></li>
+    <li data-k="c5"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>长江索道</b>：公众号购票+取号（当天）</span></li>
+    <li data-k="c6"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>两江游轮</b>：实名制线上购票（1.2m 以下免费）</span></li>
+    <li data-k="c7"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>三峡博物馆</b>：免费预约（周一闭馆）</span></li>
+    <li data-k="c8"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>酒店 7 晚</b>：重庆解放碑圈 4 晚 + 成都春熙路圈 3 晚（暑期尽早订）</span></li>
+    <li data-k="c9"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>成都租车</b>：一嗨 APP 提前下单（7 座/SUV，芝麻信用 650 免押金）</span></li>
+    <li data-k="c10"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>全员证件</b>：身份证原件（老人免票凭证）、儿童户口本/身份证、驾驶证</span></li>
+    <li data-k="c11"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>防暑包</b>：藿香正气水、防晒霜、遮阳帽、晴雨伞、大水壶</span></li>
+    <li data-k="c12"><span class="box"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>查看武隆 48h 天气</b>：暴雨自动切换 D4B 轻松版</span></li>
+  </ul>
+</section>
+
+<!-- ================= 5 STAY & TRANSIT ================= -->
+<section id="stay">
+  <div class="sec-head"><span class="num">1</span><h2>住宿推荐（选址已审计为全城最优）</h2><span class="tag">解放碑=渝中几何中心 · 春熙路=城市中心</span></div>
+
+  <h3 style="margin:8px 0 10px;font-size:16px">🏨 重庆 · 解放碑/洪崖洞圈（近 2 号线临江门站）</h3>
+  <div class="hotel">
+    <div class="hotel-item"><h4>洪崖洞江景智选假日（IHG）</h4><p>1楼步行400m到洪崖洞，22楼天桥连解放碑，儿童免费用餐</p></div>
+    <div class="hotel-item"><h4>沃林净旅（解放碑洪崖洞店）</h4><p>Agoda 5709 评 9.4 分，性价比高，步行 10 分钟到解放碑/洪崖洞</p></div>
+    <div class="hotel-item"><h4>今禧高空江景酒店</h4><p>顶楼大堂+高空江景，适合拍照</p></div>
+    <div class="hotel-item"><h4>君亭设计酒店（解放碑洪崖洞店）</h4><p>毗邻解放碑和洪崖洞，带游乐场</p></div>
+  </div>
+
+  <h3 style="margin:20px 0 10px;font-size:16px">🏨 成都 · 春熙路/太古里圈（2/3 号线交汇）</h3>
+  <div class="hotel">
+    <div class="hotel-item"><h4>全季（春熙路太古里店）</h4><p>位置评分 9.8，步行到太古里/春熙路</p></div>
+    <div class="hotel-item"><h4>太古里春熙美居酒店</h4><p>亲子酒店榜 No.1，有家庭房</p></div>
+    <div class="hotel-item"><h4>安逸·新良大酒店</h4><p>亲子主题房，毗邻太古里</p></div>
+    <div class="hotel-item"><h4>成都瑞城名人酒店</h4><p>亲子酒店，近文殊院/天府广场</p></div>
+  </div>
+
+  <div class="sec-head"><span class="num">2</span><h2>交通方案</h2></div>
+  <div class="grid">
+    <div class="card">
+      <h3><span class="dot"></span>重庆 · 公共交通</h3>
+      <ul class="link-list">
+        <li>地铁 1/2/3/6 号线覆盖全部核心景点，支付宝/微信乘车码直接刷</li>
+        <li><b>8D 地形规则</b>：能坐地铁不走路，能打车不爬坡（导航选"步行"看台阶数）</li>
+        <li>到重庆北站：地铁 3/10 号线约 30min</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot"></span>成都 · 租车（D7）</h3>
+      <ul class="link-list">
+        <li>推荐<b>一嗨</b>：芝麻信用 650+ 免押金，机场/高铁站有门店，异地还车费低</li>
+        <li>7 座商务车/SUV，日租 150-250 元 + <b>补充保险 50 元/天必买</b>（小剐蹭免赔）</li>
+        <li>成都→都江堰 60km 高速 1-1.5h；还车前加满油（宁多勿少）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6 TIPS ================= -->
+<section id="tips">
+  <div class="sec-head"><span class="num">1</span><h2>老小出行 · 防暑 · 防雨</h2></div>
+
+  <div class="alert alert-red">
+    <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><path d="M12 8a4 4 0 0 1 4 4"/></svg>
+    <div><b>重庆 8 月高温实锤</b>：平均 28.5℃，中心城区极端 38-41℃；35℃ 以上高温日 25-30 天。湿度 65-86% 闷热。10:00-16:00 严禁户外暴晒，备藿香正气水。</div>
+  </div>
+  <div class="alert alert-gold">
+    <svg viewBox="0 0 24 24"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 17l-4 4-4-4"/><path d="M12 21v-9"/></svg>
+    <div><b>成都 8 月多雨</b>：雨日 16 天+午后阵雨，<b>雨伞必备</b>。行程"早出晚归"：上午排户外，下午遇雨进茶馆/博物馆。</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3><span class="dot"></span>👴 老人友好清单</h3>
+      <ul class="link-list">
+        <li>洪崖洞全程直达电梯（11楼→1楼）；李子坝可站内远观</li>
+        <li>熊猫基地<b>观光车 30 元必买</b>；都江堰走秦堰楼免爬山线</li>
+        <li>重庆动物园平地多、无压力</li>
+        <li>火锅全部<b>鸳鸯锅</b>；每顿都有不辣选项（蹄花汤/豆花/清汤抄手）</li>
+        <li>每天 1-2 个核心景点 + 强制午休，节奏放慢</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot"></span>👦 小朋友友好清单</h3>
+      <ul class="link-list">
+        <li>轻轨穿楼（李子坝）+ 长江索道 + 两江游轮：孩子最爱三大件</li>
+        <li>防空洞吃火锅、熊猫基地看"花花"、动物园 22 只熊猫</li>
+        <li>蜀风雅韵变脸演出（带孩子强烈推荐）</li>
+        <li>1.2m 以下：游轮/武隆免票；1.3m 以下：索道/都江堰免票</li>
+        <li>随身：水壶、湿巾、换洗衣物、防蚊液</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot"></span>⚠️ 本地人避雷</h3>
+      <ul class="link-list">
+        <li>八一好吃街游客扎堆 → 去<b>观音桥好吃街</b></li>
+        <li>鹤鸣茶社正午全是游客 → 改<b>少城苑/浓荫茶社</b></li>
+        <li>磁器口周末人山人海 → 尽量排工作日上午</li>
+        <li>长江索道北站排队 1-2h → 从南站（上新街）上车</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-head"><span class="num">2</span><h2>本地人 & 资深游客认证清单</h2><span class="tag">已覆盖 80%</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>地点</th><th>认证理由</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td>十八梯 / 山城巷</td><td>"承载重庆人乡愁""原汁原味老重庆"（本地宝）</td><td class="ok">已在 D3</td></tr>
+      <tr><td>南滨路（龙门浩/长嘉汇）</td><td>本地人散步第一名，比挤洪崖洞更出片</td><td class="ok">已在 D3</td></tr>
+      <tr><td>重庆动物园</td><td>全国熊猫最多（22只），本地人带娃常去</td><td class="ok">已在 D4B</td></tr>
+      <tr><td>鹤鸣茶社（人民公园）</td><td>101 岁老茶馆，16 元/杯坐一下午</td><td class="ok">已在 D5</td></tr>
+      <tr><td>都江堰</td><td>世界遗产，成都人自己周末也去</td><td class="ok">已在 D7</td></tr>
+      <tr><td><b>两江小渡</b></td><td>本地人过江方式，江上视角，约 10 元</td><td class="b-gold badge">D3 建议补</td></tr>
+      <tr><td><b>交通茶馆+黄桷坪涂鸦街</b></td><td>最市井老茶馆+川美涂鸦墙（免费）</td><td class="b-gold badge">D4B 建议补</td></tr>
+      <tr><td><b>文殊院+张老二凉粉</b></td><td>本地香火最旺+甜水面"成都味道第一"</td><td class="b-gold badge">D6 顺路补</td></tr>
+      <tr><td>街子古镇</td><td>"成都人最常去的古镇""青城后花园"</td><td class="b-gold badge">D7 可选</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ================= 7 AUDIT ================= -->
+<section id="audit">
+  <div class="sec-head"><span class="num">1</span><h2>路线审计</h2><span class="tag">零回头</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>路段</th><th>方向</th><th>审计结论</th></tr></thead>
+    <tbody>
+      <tr><td>全程：漯河→重庆→成都→漯河</td><td>西南→西→东北</td><td class="ok">单调推进，无回头路 ✓</td></tr>
+      <tr><td>D2：磁器口→解放碑→三峡博物馆→李子坝</td><td>1号线+2号线单向</td><td class="ok">已优化为单向零回头 ✓</td></tr>
+      <tr><td>D3：南岸+渝中</td><td>过江1次</td><td class="ok">仅1次过江往返 ✓</td></tr>
+      <tr><td>D6：熊猫基地→文殊院→武侯祠</td><td>北→中→南</td><td class="ok">跨度大但有午休缓冲，顺序正确 ✓</td></tr>
+      <tr><td>D7：都江堰单向往返</td><td>西郊</td><td class="ok">无绕路 ✓</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="sec-head"><span class="num">2</span><h2>地理位置审计</h2><span class="tag">住宿=几何中心</span></div>
+  <div class="grid">
+    <div class="card">
+      <h3><span class="dot"></span>重庆 · 解放碑辐射圈</h3>
+      <ul class="link-list">
+        <li>12 目的地中 <b>9 个在 30 分钟圈内</b>；洪崖洞/索道/老街纯步行</li>
+        <li>唯一跨区：磁器口(1号线30min)、动物园(2号线40min)——不可避免</li>
+        <li class="b-red badge" style="margin-left:0">高铁认准重庆北站，勿选重庆西（远15km+）</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot"></span>成都 · 春熙路辐射圈</h3>
+      <ul class="link-list">
+        <li>市区所有点 15-40 分钟；返程东站 2 号线直达</li>
+        <li>都江堰(西北)与三星堆(东北)<b>方向相反不可同天</b> → 8天取舍成立</li>
+        <li>成都平原海拔约 500m，地势平坦，步行友好</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-head"><span class="num">3</span><h2>自然环境审计</h2><span class="tag">2026-08 气象核实</span></div>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>指标</th><th>重庆</th><th>成都</th><th>应对</th></tr></thead>
+    <tbody>
+      <tr><td>平均气温</td><td>约 28.5℃（极端 38-41℃）</td><td>约 25.8℃（最高 29.6℃）</td><td>午休避暑已排入每天</td></tr>
+      <tr><td>8 月降雨</td><td>110-139mm，多短时强降水</td><td>274mm，雨日 16 天+午后阵雨</td><td>雨伞必备；午后进室内</td></tr>
+      <tr><td>主要风险</td><td>高温/山洪滑坡</td><td>湿热/午后雷雨</td><td>武隆暴雨强制切换方案</td></tr>
+      <tr><td>地形/海拔</td><td>200-400m·8D爬坡</td><td>约500m·平坦</td><td>能打车不爬坡</td></tr>
+      <tr><td>汛期（7-8月）</td><td colspan="2">两江水位上涨，游轮/索道以官方当日开航公告为准</td><td>D3 暴雨自动改室内</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="alert alert-red" style="margin-top:14px">
+    <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+    <div><b>最高风险点 = D4 武隆</b>：气象部门明示 8 月强降水诱发山洪滑坡泥石流风险高。铁律：出发前看 48h 预报，暴雨自动切 D4B 市区方案。</div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <b>川渝八日家庭游攻略 · v1.0</b><br>
+  信息核实日期 2026-07-31，来源：12306/携程/去哪儿票务、重庆本地宝、成都本地宝、熊猫基地官网(panda.org.cn)、武侯祠官网、重庆发改委、两江游官网、气象信源等<br>
+  票价、车次、预约政策以官方当日为准 ｜ 餐厅营业状态建议大众点评确认 ｜ 浏览器打开即可用，支持打印（Ctrl+P）
+</footer>
+
+<script>
+// ===== Tab 切换 =====
+const tabs=document.querySelectorAll('.tab'),secs=document.querySelectorAll('section');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+
+// ===== 每日卡片折叠 =====
+document.querySelectorAll('.day-head').forEach(h=>{
+  h.addEventListener('click',()=>h.parentElement.classList.toggle('collapsed'));
+});
+
+// ===== 预约清单 localStorage =====
+const store=JSON.parse(localStorage.getItem('cqcd_check')||'{}');
+document.querySelectorAll('#checklist li').forEach(li=>{
+  if(store[li.dataset.k])li.classList.add('done');
+  li.addEventListener('click',()=>{
+    li.classList.toggle('done');
+    store[li.dataset.k]=li.classList.contains('done');
+    localStorage.setItem('cqcd_check',JSON.stringify(store));
+  });
+});
+</script>
+</body>
+</html>
