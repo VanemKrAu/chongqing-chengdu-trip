@@ -1022,7 +1022,7 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
   secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
   playSectionEntrance(document.getElementById(t.dataset.sec));
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({top:0,behavior:'instant'}); // 切换 tab 立即回到当前页顶部
   saveUIState();
   if(window.ScrollTrigger) ScrollTrigger.refresh(); // 文档高度变化后重算进度条
 }));
