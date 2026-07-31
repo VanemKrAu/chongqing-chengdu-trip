@@ -319,7 +319,7 @@
   <p style="color:var(--text2);font-size:14px;margin-bottom:14px">📌 通用节奏：每天 1-2 个核心景点 + 午休避高温（重庆 8 月 40℃，10:00-16:00 尽量室内）。每日路线已优化为单向零回头。</p>
 
   <!-- D1 -->
-  <div class="day">
+  <div class="day" data-day="D1">
     <div class="day-head">
       <div class="day-badge">D1<small>重庆</small></div>
       <div><div class="day-title">漯河 → 重庆 · 抵达与夜景</div><div class="day-meta">高铁 6h ｜ 解放碑步行圈 ｜ 强度 ★☆☆☆☆</div></div>
@@ -341,7 +341,7 @@
   </div>
 
   <!-- D2 -->
-  <div class="day">
+  <div class="day" data-day="D2">
     <div class="day-head">
       <div class="day-badge">D2<small>重庆</small></div>
       <div><div class="day-title">磁器口 · 三峡博物馆 · 李子坝</div><div class="day-meta">地铁单向线 ｜ 正午午休+室内避暑 ｜ 强度 ★★☆☆☆</div></div>
@@ -362,7 +362,7 @@
   </div>
 
   <!-- D3 -->
-  <div class="day">
+  <div class="day" data-day="D3">
     <div class="day-head">
       <div class="day-badge">D3<small>重庆</small></div>
       <div><div class="day-title">长江索道 · 南岸老街 · 两江夜游</div><div class="day-meta">南岸+渝中各半天，仅1次过江 ｜ 强度 ★★★☆☆</div></div>
@@ -382,7 +382,7 @@
   </div>
 
   <!-- D4 -->
-  <div class="day">
+  <div class="day" data-day="D4">
     <div class="day-head">
       <div class="day-badge">D4<small>重庆</small></div>
       <div><div class="day-title">武隆天生三桥（或 动物园轻松版）</div><div class="day-meta">双方案 ｜ 暴雨天强制切轻松版 ｜ 强度 ★★★★☆ / ★★☆☆☆</div></div>
@@ -418,7 +418,7 @@
   </div>
 
   <!-- D5 -->
-  <div class="day">
+  <div class="day" data-day="D5">
     <div class="day-head">
       <div class="day-badge">D5<small>成都</small></div>
       <div><div class="day-title">宽窄巷子 · 人民公园 · 太古里</div><div class="day-meta">高铁1.5h ｜ 西南单向线 ｜ 强度 ★★☆☆☆</div></div>
@@ -439,7 +439,7 @@
   </div>
 
   <!-- D6 -->
-  <div class="day">
+  <div class="day" data-day="D6">
     <div class="day-head">
       <div class="day-badge">D6<small>成都</small></div>
       <div><div class="day-title">熊猫基地 · 文殊院 · 武侯祠锦里</div><div class="day-meta">重头戏日 ｜ 7:30 开门即入 ｜ 强度 ★★★☆☆</div></div>
@@ -461,7 +461,7 @@
   </div>
 
   <!-- D7 -->
-  <div class="day">
+  <div class="day" data-day="D7">
     <div class="day-head">
       <div class="day-badge">D7<small>成都</small></div>
       <div><div class="day-title">都江堰自驾一日</div><div class="day-meta">租车 ｜ 秦堰楼免爬山线 ｜ 强度 ★★★☆☆</div></div>
@@ -482,7 +482,7 @@
   </div>
 
   <!-- D8 -->
-  <div class="day">
+  <div class="day" data-day="D8">
     <div class="day-head">
       <div class="day-badge">D8<small>返程</small></div>
       <div><div class="day-title">成都 → 漯河</div><div class="day-meta">6.5h 到家 ｜ 强度 ★☆☆☆☆</div></div>
@@ -1026,8 +1026,7 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   saveUIState();
 }));
 
-// ===== 总览 → 每日行程：点击某天跳转对应时间轴 =====
-const DAY_INDEX = {D1:0,D2:1,D3:2,D4:3,D5:5,D6:6,D7:7,D8:8}; // daily 内 .day 顺序: D1,D2,D3,D4A,D4B,D5,D6,D7,D8
+// ===== 总览 → 每日行程：点击某天跳转对应时间轴（按 data-day 精准定位）=====
 function goToDay(day){
   const dailySec=document.getElementById('daily');
   if(!dailySec.classList.contains('active')){
@@ -1036,12 +1035,11 @@ function goToDay(day){
     secs.forEach(s=>s.classList.toggle('active',s.id==='daily'));
     playSectionEntrance(dailySec);
   }
-  const idx=DAY_INDEX[day];
-  const cards=document.querySelectorAll('#daily .day');
-  if(idx!==undefined&&cards[idx]){
-    cards[idx].classList.remove('collapsed'); // 确保展开显示时间轴
+  const card=document.querySelector('#daily .day[data-day="'+day+'"]');
+  if(card){
+    card.classList.remove('collapsed'); // 确保展开显示时间轴
     setTimeout(()=>{
-      const top=cards[idx].getBoundingClientRect().top+window.scrollY-72;
+      const top=card.getBoundingClientRect().top+window.scrollY-72;
       window.scrollTo({top:top,behavior:'smooth'});
     },120);
   }
