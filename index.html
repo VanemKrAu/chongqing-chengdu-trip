@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>川渝八日家庭游 · 旅行攻略手册</title>
 <meta name="description" content="重庆+成都 8 天 7 晚家庭游完整攻略：每日行程、美食、门票、住宿、预约清单、本地人推荐与防暑指南">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
   /* ========== Design Tokens ========== */
   :root{
@@ -70,8 +72,10 @@
   .day-meta{font-size:12.5px;color:var(--text2);margin-top:2px}
   .day-head .chev{margin-left:auto;color:var(--text3);transition:transform .25s;width:18px;height:18px}
   .day.collapsed .chev{transform:rotate(-90deg)}
-  .day-body{padding:6px 20px 18px}
+  .day-body{padding:6px 20px 18px;overflow:hidden}
   .day.collapsed .day-body{display:none}
+  #progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--grad);transform-origin:0 50%;transform:scaleX(0);z-index:99;box-shadow:0 0 12px rgba(245,158,11,.5)}
+  .day,.card,.stat,.hotel-item,.alert,.table-wrap,.sec-head{will-change:transform,opacity}
   .tl{list-style:none;padding:12px 0 0}
   .tl li{position:relative;padding:0 0 16px 30px}
   .tl li::before{content:"";position:absolute;left:8px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--card2);border:2.5px solid var(--gold)}
@@ -135,6 +139,7 @@
 </style>
 </head>
 <body>
+<div id="progress"></div>
 
 <!-- ================= HERO ================= -->
 <header class="hero">
@@ -658,13 +663,10 @@ const tabs=document.querySelectorAll('.tab'),secs=document.querySelectorAll('sec
 tabs.forEach(t=>t.addEventListener('click',()=>{
   tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
   secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
+  // 新分区平滑入场
+  if(window.gsap) gsap.fromTo(document.getElementById(t.dataset.sec),{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.38,ease:'power2.out'});
   window.scrollTo({top:0,behavior:'smooth'});
 }));
-
-// ===== 每日卡片折叠 =====
-document.querySelectorAll('.day-head').forEach(h=>{
-  h.addEventListener('click',()=>h.parentElement.classList.toggle('collapsed'));
-});
 
 // ===== 预约清单 localStorage =====
 const store=JSON.parse(localStorage.getItem('cqcd_check')||'{}');
@@ -676,6 +678,64 @@ document.querySelectorAll('#checklist li').forEach(li=>{
     localStorage.setItem('cqcd_check',JSON.stringify(store));
   });
 });
+
+// ===== GSAP 动效（无网/CDN失败时优雅降级，内容不受影响） =====
+if(window.gsap && window.ScrollTrigger){
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 每日卡片平滑展开/收起（GSAP 动画 height，替代生硬切换）
+  document.querySelectorAll('.day').forEach(day=>{
+    const head=day.querySelector('.day-head'), body=day.querySelector('.day-body');
+    head.addEventListener('click',()=>{
+      if(day.classList.contains('collapsed')){
+        day.classList.remove('collapsed');
+        gsap.fromTo(body,{height:0,autoAlpha:0},{height:'auto',autoAlpha:1,duration:.45,ease:'power2.out',clearProps:'height'});
+      }else{
+        gsap.to(body,{height:0,autoAlpha:0,duration:.32,ease:'power2.in',onComplete:()=>day.classList.add('collapsed')});
+      }
+    });
+  });
+
+  // prefers-reduced-motion 尊重 + 移动端裁剪
+  const mm=gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)',()=>{
+
+    // ① Hero 进入时间线
+    const heroTl=gsap.timeline({defaults:{ease:'power3.out'}});
+    heroTl.from('.hero .kicker',{y:-14,autoAlpha:0,duration:.6})
+           .from('.hero h1',{y:26,autoAlpha:0,duration:.75},'-=.35')
+           .from('.hero .sub',{y:16,autoAlpha:0,duration:.5},'-=.4')
+           .from('.hero .chip',{y:16,autoAlpha:0,duration:.45,stagger:.09,ease:'back.out(1.7)'},'-=.35');
+
+    // ② 顶部阅读进度条（滚动 scrub）
+    gsap.to('#progress',{scaleX:1,ease:'none',
+      scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+
+    // ③ 统计数字 & 区块标题徽章弹性入场
+    gsap.from('.sec-head .num',{scale:0,rotation:-12,autoAlpha:0,duration:.5,stagger:.06,ease:'back.out(2)',
+      scrollTrigger:{trigger:'.sec-head',start:'top 88%',once:true}});
+    gsap.from('.stat',{scale:.85,autoAlpha:0,duration:.55,ease:'back.out(1.8)',
+      scrollTrigger:{trigger:'.stat',start:'top 88%',once:true,stagger:.1}});
+
+    // ④ 通用区块滚动入场（卡片/表格/警示框/住宿）
+    gsap.utils.toArray(['.card','.hotel-item','.alert','.table-wrap','.grid .card']).forEach(el=>{
+      gsap.from(el,{y:28,autoAlpha:0,duration:.6,ease:'power2.out',
+        scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+    });
+
+    // ⑤ 每日卡片逐个入场
+    gsap.utils.toArray('.day').forEach((d,i)=>{
+      gsap.from(d,{y:34,autoAlpha:0,duration:.55,ease:'power2.out',delay:(i%3)*.06,
+        scrollTrigger:{trigger:d,start:'top 92%',once:true}});
+    });
+
+    // ⑥ checklist 条目交错入场
+    gsap.from('#checklist li',{x:-18,autoAlpha:0,duration:.4,stagger:.05,ease:'power2.out',
+      scrollTrigger:{trigger:'#checklist',start:'top 88%',once:true}});
+
+    ScrollTrigger.refresh();
+  });
+}
 </script>
 </body>
 </html>
