@@ -192,6 +192,10 @@
   .check{list-style:none}
   .check li{display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:9px;cursor:pointer;transition:background .2s;font-size:14.5px;background:var(--card)}
   .check li:hover{background:var(--card2)}
+  .day-link{cursor:pointer}
+  .day-link:hover{background:rgba(232,169,92,.06)}
+  .day-link td:first-child b{color:var(--gold)}
+  .day-link td:last-child::after{content:"›";margin-left:8px;color:var(--text3);font-size:14px}
   .check .box{width:22px;height:22px;flex:0 0 22px;border:2px solid var(--border2);border-radius:6px;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s}
   .check .box svg{width:13px;height:13px;stroke:#ffffff;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0}
   .check li.done .box{background:var(--green);border-color:var(--green)}
@@ -259,14 +263,14 @@
   <table>
     <thead><tr><th>天</th><th>城市</th><th>行程</th><th>住宿</th></tr></thead>
     <tbody>
-      <tr><td><b>D1</b></td><td>重庆</td><td>漯河→高铁6h→解放碑 → 八一好吃街 → 洪崖洞夜景</td><td>解放碑/洪崖洞</td></tr>
-      <tr><td><b>D2</b></td><td>重庆</td><td>磁器口(上午凉快) → 午休 → 三峡博物馆(避暑) → 李子坝轻轨穿楼</td><td>同上</td></tr>
-      <tr><td><b>D3</b></td><td>重庆</td><td>长江索道 → 龙门浩/弹子石 → 山城巷/十八梯 → 两江夜游</td><td>同上</td></tr>
-      <tr><td><b>D4</b></td><td>重庆</td><td>武隆天生三桥 或 动物园+交通茶馆(轻松版)</td><td>同上</td></tr>
-      <tr><td><b>D5</b></td><td>成都</td><td>高铁1.5h → 宽窄巷子 → 人民公园鹤鸣茶社 → 太古里夜景</td><td>春熙路/太古里</td></tr>
-      <tr><td><b>D6</b></td><td>成都</td><td>熊猫基地(7:30入园) → 文殊院+张老二凉粉 → 武侯祠+锦里</td><td>同上</td></tr>
-      <tr><td><b>D7</b></td><td>成都</td><td>租车自驾 → 都江堰(秦堰楼免爬线) → 熊猫谷/街子古镇 → 还车</td><td>同上</td></tr>
-      <tr><td><b>D8</b></td><td>返程</td><td>成都东→郑州东(5h) → 漯河西(49min) → 到家</td><td>🏠</td></tr>
+      <tr class="day-link" data-day="D1"><td><b>D1</b></td><td>重庆</td><td>漯河→高铁6h→解放碑 → 八一好吃街 → 洪崖洞夜景</td><td>解放碑/洪崖洞</td></tr>
+      <tr class="day-link" data-day="D2"><td><b>D2</b></td><td>重庆</td><td>磁器口(上午凉快) → 午休 → 三峡博物馆(避暑) → 李子坝轻轨穿楼</td><td>同上</td></tr>
+      <tr class="day-link" data-day="D3"><td><b>D3</b></td><td>重庆</td><td>长江索道 → 龙门浩/弹子石 → 山城巷/十八梯 → 两江夜游</td><td>同上</td></tr>
+      <tr class="day-link" data-day="D4"><td><b>D4</b></td><td>重庆</td><td>武隆天生三桥 或 动物园+交通茶馆(轻松版)</td><td>同上</td></tr>
+      <tr class="day-link" data-day="D5"><td><b>D5</b></td><td>成都</td><td>高铁1.5h → 宽窄巷子 → 人民公园鹤鸣茶社 → 太古里夜景</td><td>春熙路/太古里</td></tr>
+      <tr class="day-link" data-day="D6"><td><b>D6</b></td><td>成都</td><td>熊猫基地(7:30入园) → 文殊院+张老二凉粉 → 武侯祠+锦里</td><td>同上</td></tr>
+      <tr class="day-link" data-day="D7"><td><b>D7</b></td><td>成都</td><td>租车自驾 → 都江堰(秦堰楼免爬线) → 熊猫谷/街子古镇 → 还车</td><td>同上</td></tr>
+      <tr class="day-link" data-day="D8"><td><b>D8</b></td><td>返程</td><td>成都东→郑州东(5h) → 漯河西(49min) → 到家</td><td>🏠</td></tr>
     </tbody>
   </table>
   </div>
@@ -1019,7 +1023,56 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
   playSectionEntrance(document.getElementById(t.dataset.sec));
   window.scrollTo({top:0,behavior:'smooth'});
+  saveUIState();
 }));
+
+// ===== 总览 → 每日行程：点击某天跳转对应时间轴 =====
+const DAY_INDEX = {D1:0,D2:1,D3:2,D4:3,D5:5,D6:6,D7:7,D8:8}; // daily 内 .day 顺序: D1,D2,D3,D4A,D4B,D5,D6,D7,D8
+function goToDay(day){
+  const dailySec=document.getElementById('daily');
+  if(!dailySec.classList.contains('active')){
+    tabs.forEach(x=>x.classList.remove('active'));
+    document.querySelector('.tab[data-sec="daily"]').classList.add('active');
+    secs.forEach(s=>s.classList.toggle('active',s.id==='daily'));
+    playSectionEntrance(dailySec);
+  }
+  const idx=DAY_INDEX[day];
+  const cards=document.querySelectorAll('#daily .day');
+  if(idx!==undefined&&cards[idx]){
+    cards[idx].classList.remove('collapsed'); // 确保展开显示时间轴
+    setTimeout(()=>{
+      const top=cards[idx].getBoundingClientRect().top+window.scrollY-72;
+      window.scrollTo({top:top,behavior:'smooth'});
+    },120);
+  }
+}
+document.querySelectorAll('#overview .day-link').forEach(tr=>{
+  tr.addEventListener('click',()=>goToDay(tr.dataset.day));
+});
+
+// ===== 记忆打开的 tab 与滚动位置（参考 Railway-Exam 方案）=====
+const UI_KEY='cqcd_ui_state';
+let uiTimer=null;
+function saveUIState(){
+  try{ localStorage.setItem(UI_KEY, JSON.stringify({tab:document.querySelector('.tab.active').dataset.sec, y:window.scrollY})); }catch(e){}
+}
+window.addEventListener('scroll',()=>{clearTimeout(uiTimer);uiTimer=setTimeout(saveUIState,400);},{passive:true});
+window.addEventListener('beforeunload',saveUIState);
+(function restoreUI(){
+  let s=null;
+  try{ s=JSON.parse(localStorage.getItem(UI_KEY)||'null'); }catch(e){}
+  if(s&&s.tab){
+    const t=document.querySelector('.tab[data-sec="'+s.tab+'"]');
+    if(t){
+      tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
+      secs.forEach(x=>x.classList.toggle('active',x.id===s.tab));
+      if(window.gsap) playSectionEntrance(document.getElementById(s.tab));
+      if(typeof s.y==='number'&&s.y>0){
+        setTimeout(()=>{window.scrollTo(0,s.y);},300);
+      }
+    }
+  }
+})();
 
 // ===== 预约清单 localStorage =====
 const store=JSON.parse(localStorage.getItem('cqcd_check')||'{}');
