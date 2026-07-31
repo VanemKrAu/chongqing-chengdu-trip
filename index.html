@@ -32,6 +32,7 @@
     --stripe:rgba(148,163,184,.05);
     --sel:rgba(245,158,11,.35);
     --prog-shadow:rgba(245,158,11,.5);
+    --accent-blue:#38bdf8; --accent-purple:#a78bfa; --accent-orange:#fb923c;
     --shadow:0 8px 24px rgba(0,0,0,.35);
     --radius:14px; --radius-sm:9px;
     --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
@@ -62,6 +63,7 @@
       --stripe:rgba(90,75,40,.035);
       --sel:rgba(176,141,79,.25);
       --prog-shadow:rgba(176,141,79,.45);
+      --accent-blue:#2f6f9f; --accent-purple:#7c5cbf; --accent-orange:#c2662f;
       --shadow:0 10px 30px rgba(90,75,40,.10);
     }
   }
@@ -121,17 +123,21 @@
   .day.collapsed .chev{transform:rotate(-90deg)}
   .day-body{padding:6px 20px 18px;overflow:hidden}
   .day.collapsed .day-body{display:none}
+  .transport-card .dot{background:var(--accent-blue)}
+  .food-card .dot{background:var(--accent-orange)}
+  .audit-card .dot{background:var(--accent-purple)}
+  .ticket-table td b{color:var(--green)}
   #progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--grad);transform-origin:0 50%;transform:scaleX(0);z-index:99;box-shadow:0 0 12px var(--prog-shadow)}
   .day,.card,.stat,.hotel-item,.alert,.table-wrap,.sec-head{will-change:transform,opacity}
   .tl{list-style:none;padding:12px 0 0}
   .tl li{position:relative;padding:0 0 16px 30px}
   .tl li::before{content:"";position:absolute;left:8px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--card2);border:2.5px solid var(--gold)}
   .tl li:not(:last-child)::after{content:"";position:absolute;left:12.5px;top:20px;bottom:-4px;width:2px;background:var(--border2)}
-  .tl .t{color:var(--text);font-weight:600;font-size:13px;display:inline-block;min-width:52px;font-variant-numeric:tabular-nums}
+  .tl .t{color:var(--accent-blue);font-weight:600;font-size:13px;display:inline-block;min-width:52px;font-variant-numeric:tabular-nums}
   .tl .d{color:var(--text);font-size:14.5px}
   .tl .d b{color:var(--text)}
-  .meal{margin-top:6px;padding:11px 13px;background:var(--bg2);border-left:3px solid var(--orange);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:13.5px;color:var(--text2)}
-  .meal b{color:var(--text);font-weight:700}
+  .meal{margin-top:6px;padding:11px 13px;background:var(--bg2);border-left:3px solid var(--accent-orange);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:13.5px;color:var(--text2)}
+  .meal b{color:var(--accent-orange);font-weight:700}
 
   /* ========== Tables ========== */
   .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm)}
@@ -359,7 +365,7 @@
         <div><b>暴雨天强烈不建议进武隆</b>（3h 山路+峡谷天坑，山洪滑坡风险高）。出发前看 48h 预报，暴雨自动切换下方轻松版。</div>
       </div>
 
-      <p style="margin:14px 0 2px;font-size:15px;font-weight:800;color:var(--gold)">🌄 方案 A · 武隆天生三桥（天气好 · 体力允许时选这个）</p>
+      <p style="margin:14px 0 2px;font-size:15px;font-weight:800;color:var(--accent-blue)">🌄 方案 A · 武隆天生三桥（天气好 · 体力允许时选这个）</p>
       <ul class="tl">
         <li><span class="t">07:00</span><span class="d">早餐后出发，包车/小团商务车<b>上门接</b>（单程约 3 小时，5 人包车或小团人均 300-500 元）</span></li>
         <li><span class="t">10:00</span><span class="d">仙女山镇 → 景区中转车 + <b>旋转电梯</b>下天坑（<b>门票 125-155 元</b>含电梯+接驳车，60-64 岁约 120 元，65+ 约 85 元，1.2m 以下免）</span></li>
@@ -369,7 +375,7 @@
         <li><span class="t">15:30</span><span class="d">返程 → <b>18:30</b> 到市区 → 晚餐江湖菜/蹄花汤</span></li>
       </ul>
 
-      <p style="margin:14px 0 2px;font-size:15px;font-weight:800;color:var(--gold)">🌿 方案 B · 轻松版（带老人小孩推荐 · 暴雨天强制选这个）</p>
+      <p style="margin:14px 0 2px;font-size:15px;font-weight:800;color:var(--green)">🌿 方案 B · 轻松版（带老人小孩推荐 · 暴雨天强制选这个）</p>
       <ul class="tl">
         <li><span class="t">09:00</span><span class="d"><b>重庆动物园</b>（25 元·<b>全国大熊猫最多 22 只</b>·园内平缓不爬坡，上午凉快）</span></li>
         <li><span class="t">12:00</span><span class="d">午餐：<b>李子坝梁山鸡</b>（李子坝正街 60 号老店·江湖菜五十强榜首·芋儿鸡软烂适合老人）→ 回酒店午休</span></li>
@@ -468,7 +474,7 @@
 <section id="food">
   <div class="sec-head"><span class="num">1</span><h2>每日饭点推荐（都在景点附近）</h2><span class="tag">人均已标注</span></div>
 
-  <div class="card"><h3><span class="dot"></span>D1 解放碑 · 晚餐</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D1 解放碑 · 晚餐</h3>
     <ul class="link-list">
       <li><b>八一好吃街</b>（步行3min）—— 小面/酸辣粉/串串，人均 20-40</li>
       <li><b>陶婆婆火锅</b>（解放碑店）—— 卤蹄花 Q 弹耙糯，步行 5min</li>
@@ -476,7 +482,7 @@
     </ul>
   </div>
 
-  <div class="card"><h3><span class="dot"></span>D2 磁器口+解放碑 · 午+晚</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D2 磁器口+解放碑 · 午+晚</h3>
     <ul class="link-list">
       <li><b>午餐</b>：阿福板凳面（豌杂面/纸皮烧卖）｜ 十八梯邓凳面（10元内）｜ 范嬢嬢糯米团</li>
       <li><b>茶歇</b>：陈建平老街陈麻花（磁器口正街60号·人均10-26）｜ 古镇鸡杂｜毛血旺｜格桑家酸奶</li>
@@ -484,21 +490,21 @@
     </ul>
   </div>
 
-  <div class="card"><h3><span class="dot"></span>D3 南岸+渝中 · 午+晚</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D3 南岸+渝中 · 午+晚</h3>
     <ul class="link-list">
       <li><b>午餐</b>：龙门浩老街豆花饭/泉水鸡（人均30-50·江景位）</li>
       <li><b>晚餐</b>：饭粑跎（得意世界店·拌肥肠/拌蹄花）｜ 任六烧菜（麻婆豆腐/红烧肥肠）｜ 田棒棒火锅（竹荪虾滑）</li>
     </ul>
   </div>
 
-  <div class="card"><h3><span class="dot"></span>D4 武隆/动物园 · 午+晚</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D4 武隆/动物园 · 午+晚</h3>
     <ul class="link-list">
       <li><b>A 武隆</b>：仙女山镇农家菜（人均30-40）</li>
       <li><b>B 轻松版</b>：<b>李子坝梁山鸡</b>（李子坝正街60号老店·江湖菜五十强榜首·芋儿鸡软烂）→ 晚上蹄花汤/江湖菜</li>
     </ul>
   </div>
 
-  <div class="card"><h3><span class="dot"></span>D5 成都第一晚 · 午+下午茶+晚</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D5 成都第一晚 · 午+下午茶+晚</h3>
     <ul class="link-list">
       <li><b>午餐</b>：龙抄手总店（1941老字号·小吃套餐一次尝遍钟水饺/担担面）｜ 钟水饺 ｜ 赖汤圆（15元/碗流心）</li>
       <li><b>下午茶</b>：鹤鸣茶社盖碗茶（16元起）+ 采耳；门口"老妈蹄花一条街"——<b>廖老妈蹄花</b>（28元/碗·不辣·老人友好）</li>
@@ -506,14 +512,14 @@
     </ul>
   </div>
 
-  <div class="card"><h3><span class="dot"></span>D6 熊猫日 · 午+晚</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D6 熊猫日 · 午+晚</h3>
     <ul class="link-list">
       <li><b>午餐（顺路）</b>：<b>洞子口张老二凉粉</b>（文殊院街39号·甜水面"成都味道第一"·人均12）｜ 叶婆婆钵钵鸡（太古里·人均30-40）｜ 马旺子·川小馆（黑豆花水煮鱼无刺）</li>
       <li><b>晚餐</b>：<b>钟水饺（武侯祠店）</b>（武侯祠大街2号·人均25）｜ 锦里小吃 ｜ 代小龙火锅（人均40·九宫格）</li>
     </ul>
   </div>
 
-  <div class="card"><h3><span class="dot"></span>D7 都江堰 · 午+晚</h3>
+  <div class="card food-card"><h3><span class="dot"></span>D7 都江堰 · 午+晚</h3>
     <ul class="link-list">
       <li><b>午餐（灌县古城）</b>：尤兔头 ｜ 葱葱卷（7-8元）｜ <b>钟鸭子</b>（非遗·半只41元）｜ 破店蹄花（客运中心旁·本地人宵夜）</li>
       <li><b>晚餐（成都收尾）</b>：饕林餐厅（春熙路·回锅肉封神·人均65）或 蜀宴赋表演晚宴（约200/人）</li>
@@ -530,7 +536,7 @@
 <section id="tickets">
   <div class="sec-head"><span class="num">1</span><h2>门票价格速查</h2><span class="tag">2026-07 核实，以官方当日为准</span></div>
   <div class="table-wrap">
-  <table>
+  <table class="ticket-table">
     <thead><tr><th>景点</th><th>成人价</th><th>老人/儿童优惠</th><th>预约要求</th></tr></thead>
     <tbody>
       <tr><td>洪崖洞 / 解放碑 / 磁器口 / 宽窄巷子 / 锦里 / 山城巷 / 十八梯</td><td>免费</td><td>—</td><td>—</td></tr>
@@ -588,7 +594,7 @@
 
   <div class="sec-head"><span class="num">2</span><h2>交通方案</h2></div>
   <div class="grid">
-    <div class="card">
+    <div class="card transport-card">
       <h3><span class="dot"></span>重庆 · 公共交通</h3>
       <ul class="link-list">
         <li>地铁 1/2/3/6 号线覆盖全部核心景点，支付宝/微信乘车码直接刷</li>
@@ -598,7 +604,7 @@
         <li>关键站点：1号线较场口/磁器口 ｜ 2号线临江门/曾家岩/李子坝 ｜ 6号线小什字（长江索道）</li>
       </ul>
     </div>
-    <div class="card">
+    <div class="card transport-card">
       <h3><span class="dot"></span>成都 · 租车（D7）</h3>
       <ul class="link-list">
         <li>推荐<b>一嗨</b>：芝麻信用 650+ 免押金，机场/高铁站有门店，异地还车费低</li>
@@ -712,7 +718,7 @@
 
   <div class="sec-head"><span class="num">2</span><h2>地理位置审计</h2><span class="tag">住宿=几何中心</span></div>
   <div class="grid">
-    <div class="card">
+    <div class="card audit-card">
       <h3><span class="dot"></span>重庆 · 解放碑辐射圈</h3>
       <ul class="link-list">
         <li>12 目的地中 <b>9 个在 30 分钟圈内</b>；洪崖洞/索道/老街纯步行</li>
@@ -720,7 +726,7 @@
         <li class="b-red badge" style="margin-left:0">高铁认准重庆北站，勿选重庆西（远15km+）</li>
       </ul>
     </div>
-    <div class="card">
+    <div class="card audit-card">
       <h3><span class="dot"></span>成都 · 春熙路辐射圈</h3>
       <ul class="link-list">
         <li>市区所有点 15-40 分钟；返程东站 2 号线直达</li>
