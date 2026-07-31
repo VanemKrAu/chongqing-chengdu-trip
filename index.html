@@ -7,6 +7,7 @@
 <meta name="description" content="重庆+成都 8 天 7 晚家庭游完整攻略：每日行程、美食、门票、住宿、预约清单、本地人推荐与防暑指南">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 <style>
   /* ========== Design Tokens ========== */
     :root{
@@ -78,7 +79,7 @@
   }
 
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{}
   body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased}
   ::selection{background:var(--sel)}
 
@@ -1022,10 +1023,19 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
   secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
   playSectionEntrance(document.getElementById(t.dataset.sec));
-  window.scrollTo(0, 0); // 平滑回到当前页顶部（由 CSS scroll-behavior:smooth 驱动动画）
+  if(window.ScrollTrigger) ScrollTrigger.refresh(); // 先重算触发器位置
+  smoothScrollTo(0); // GSAP 平滑滚动回顶部（带动画）
   saveUIState();
-  if(window.ScrollTrigger) ScrollTrigger.refresh(); // 文档高度变化后重算进度条
 }));
+
+// ===== 统一平滑滚动（GSAP 驱动，保证动画）=====
+function smoothScrollTo(y, dur){
+  if(window.gsap && window.ScrollToPlugin){
+    gsap.to(window, {scrollTo: y, duration: dur || 0.5, ease: 'power2.out', overwrite: 'auto'});
+  } else {
+    window.scrollTo(0, y);
+  }
+}
 
 // ===== 总览 → 每日行程：点击某天跳转对应时间轴（按 data-day 精准定位）=====
 function goToDay(day){
@@ -1042,7 +1052,7 @@ function goToDay(day){
     card.classList.remove('collapsed'); // 确保展开显示时间轴
     setTimeout(()=>{
       const top=card.getBoundingClientRect().top+window.scrollY-72;
-      window.scrollTo(0, top);
+      smoothScrollTo(top, 0.6);
     },120);
   }
 }
@@ -1090,7 +1100,7 @@ document.querySelectorAll('#checklist li').forEach(li=>{
 
 // ===== GSAP 动效（无网/CDN失败时优雅降级，内容不受影响） =====
 if(window.gsap && window.ScrollTrigger){
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
   // 每日卡片平滑展开/收起（GSAP 动画 height，替代生硬切换）
   document.querySelectorAll('.day').forEach(day=>{
