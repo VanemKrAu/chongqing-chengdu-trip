@@ -1024,6 +1024,7 @@ tabs.forEach(t=>t.addEventListener('click',()=>{
   playSectionEntrance(document.getElementById(t.dataset.sec));
   window.scrollTo({top:0,behavior:'smooth'});
   saveUIState();
+  if(window.ScrollTrigger) ScrollTrigger.refresh(); // 文档高度变化后重算进度条
 }));
 
 // ===== 总览 → 每日行程：点击某天跳转对应时间轴（按 data-day 精准定位）=====
@@ -1034,6 +1035,7 @@ function goToDay(day){
     document.querySelector('.tab[data-sec="daily"]').classList.add('active');
     secs.forEach(s=>s.classList.toggle('active',s.id==='daily'));
     playSectionEntrance(dailySec);
+    if(window.ScrollTrigger) ScrollTrigger.refresh();
   }
   const card=document.querySelector('#daily .day[data-day="'+day+'"]');
   if(card){
@@ -1065,6 +1067,7 @@ window.addEventListener('beforeunload',saveUIState);
       tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
       secs.forEach(x=>x.classList.toggle('active',x.id===s.tab));
       if(window.gsap) playSectionEntrance(document.getElementById(s.tab));
+      if(window.ScrollTrigger) ScrollTrigger.refresh();
       if(typeof s.y==='number'&&s.y>0){
         const goTo=()=>window.scrollTo(0,s.y);
         setTimeout(goTo,300);          // 先恢复
@@ -1112,12 +1115,15 @@ if(window.gsap && window.ScrollTrigger){
            .from('.hero .sub',{y:16,autoAlpha:0,duration:.5},'-=.4')
            .from('.hero .chip',{y:16,autoAlpha:0,duration:.45,stagger:.09,ease:'back.out(1.7)'},'-=.35');
 
-    // ② 顶部阅读进度条（onUpdate 直驱，精确 0-100% 映射滚动范围，无滞后无偏差）
+    // ② 顶部阅读进度条（实时公式：按当前文档高度计算，切 tab 后依然精确 0-100%）
     ScrollTrigger.create({
       trigger: document.documentElement,
       start: 0,
-      end: 'max',
-      onUpdate: self => { gsap.set('#progress', { scaleX: self.progress }); }
+      end: () => document.documentElement.scrollHeight - innerHeight,
+      onUpdate: self => {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        gsap.set('#progress', { scaleX: max > 0 ? scrollY / max : 0 });
+      }
     });
 
     // ③ 初始 tab（总览）播放入场
