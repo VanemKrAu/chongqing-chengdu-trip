@@ -1068,7 +1068,9 @@ window.addEventListener('beforeunload',saveUIState);
       secs.forEach(x=>x.classList.toggle('active',x.id===s.tab));
       if(window.gsap) playSectionEntrance(document.getElementById(s.tab));
       if(typeof s.y==='number'&&s.y>0){
-        setTimeout(()=>{window.scrollTo(0,s.y);},300);
+        const goTo=()=>window.scrollTo(0,s.y);
+        setTimeout(goTo,300);          // 先恢复
+        window.addEventListener('load',()=>setTimeout(goTo,120)); // 资源加载完再校正一次
       }
     }
   }
