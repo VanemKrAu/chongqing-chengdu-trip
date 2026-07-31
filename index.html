@@ -1112,9 +1112,13 @@ if(window.gsap && window.ScrollTrigger){
            .from('.hero .sub',{y:16,autoAlpha:0,duration:.5},'-=.4')
            .from('.hero .chip',{y:16,autoAlpha:0,duration:.45,stagger:.09,ease:'back.out(1.7)'},'-=.35');
 
-    // ② 顶部阅读进度条（body 级，滚动 scrub）
-    gsap.to('#progress',{scaleX:1,ease:'none',
-      scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
+    // ② 顶部阅读进度条（onUpdate 直驱，精确 0-100% 映射滚动范围，无滞后无偏差）
+    ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: 0,
+      end: 'max',
+      onUpdate: self => { gsap.set('#progress', { scaleX: self.progress }); }
+    });
 
     // ③ 初始 tab（总览）播放入场
     playSectionEntrance(document.getElementById('overview'));
