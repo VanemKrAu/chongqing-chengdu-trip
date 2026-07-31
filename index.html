@@ -658,13 +658,23 @@
 </footer>
 
 <script>
+// ===== 区块入场动画（tab 激活时播放，避免 display:none 元素被预隐藏） =====
+function playSectionEntrance(sec){
+  if(!window.gsap) return;
+  const heads=sec.querySelectorAll('.sec-head');
+  const rest=sec.querySelectorAll('.card,.stat,.alert,.table-wrap,.hotel-item,.day,#checklist li');
+  gsap.set([...heads,...rest],{clearProps:'all'});  // 先清除任何残留隐藏状态
+  const tl=gsap.timeline({defaults:{ease:'power2.out'}});
+  tl.fromTo(heads,{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.4,stagger:.06})
+    .fromTo(rest,{autoAlpha:0,y:26},{autoAlpha:1,y:0,duration:.5,stagger:.05},'-=.15');
+}
+
 // ===== Tab 切换 =====
 const tabs=document.querySelectorAll('.tab'),secs=document.querySelectorAll('section');
 tabs.forEach(t=>t.addEventListener('click',()=>{
   tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
   secs.forEach(s=>s.classList.toggle('active',s.id===t.dataset.sec));
-  // 新分区平滑入场
-  if(window.gsap) gsap.fromTo(document.getElementById(t.dataset.sec),{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:.38,ease:'power2.out'});
+  playSectionEntrance(document.getElementById(t.dataset.sec));
   window.scrollTo({top:0,behavior:'smooth'});
 }));
 
@@ -696,44 +706,23 @@ if(window.gsap && window.ScrollTrigger){
     });
   });
 
-  // prefers-reduced-motion 尊重 + 移动端裁剪
+  // prefers-reduced-motion 尊重
   const mm=gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)',()=>{
 
-    // ① Hero 进入时间线
+    // ① Hero 进入时间线（首屏，不在 tab 内，无隐藏风险）
     const heroTl=gsap.timeline({defaults:{ease:'power3.out'}});
     heroTl.from('.hero .kicker',{y:-14,autoAlpha:0,duration:.6})
            .from('.hero h1',{y:26,autoAlpha:0,duration:.75},'-=.35')
            .from('.hero .sub',{y:16,autoAlpha:0,duration:.5},'-=.4')
            .from('.hero .chip',{y:16,autoAlpha:0,duration:.45,stagger:.09,ease:'back.out(1.7)'},'-=.35');
 
-    // ② 顶部阅读进度条（滚动 scrub）
+    // ② 顶部阅读进度条（body 级，滚动 scrub）
     gsap.to('#progress',{scaleX:1,ease:'none',
       scrollTrigger:{trigger:document.body,start:'top top',end:'bottom bottom',scrub:.3}});
 
-    // ③ 统计数字 & 区块标题徽章弹性入场
-    gsap.from('.sec-head .num',{scale:0,rotation:-12,autoAlpha:0,duration:.5,stagger:.06,ease:'back.out(2)',
-      scrollTrigger:{trigger:'.sec-head',start:'top 88%',once:true}});
-    gsap.from('.stat',{scale:.85,autoAlpha:0,duration:.55,ease:'back.out(1.8)',
-      scrollTrigger:{trigger:'.stat',start:'top 88%',once:true,stagger:.1}});
-
-    // ④ 通用区块滚动入场（卡片/表格/警示框/住宿）
-    gsap.utils.toArray(['.card','.hotel-item','.alert','.table-wrap','.grid .card']).forEach(el=>{
-      gsap.from(el,{y:28,autoAlpha:0,duration:.6,ease:'power2.out',
-        scrollTrigger:{trigger:el,start:'top 88%',once:true}});
-    });
-
-    // ⑤ 每日卡片逐个入场
-    gsap.utils.toArray('.day').forEach((d,i)=>{
-      gsap.from(d,{y:34,autoAlpha:0,duration:.55,ease:'power2.out',delay:(i%3)*.06,
-        scrollTrigger:{trigger:d,start:'top 92%',once:true}});
-    });
-
-    // ⑥ checklist 条目交错入场
-    gsap.from('#checklist li',{x:-18,autoAlpha:0,duration:.4,stagger:.05,ease:'power2.out',
-      scrollTrigger:{trigger:'#checklist',start:'top 88%',once:true}});
-
-    ScrollTrigger.refresh();
+    // ③ 初始 tab（总览）播放入场
+    playSectionEntrance(document.getElementById('overview'));
   });
 }
 </script>
